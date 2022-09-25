@@ -29,9 +29,17 @@ check_for_dups(track_feat, 'track_feat')
 # further EDA was done in jupyter notebook, see readme for more info
 # drop duplicate albums with the same name
 album.drop_duplicates(subset=['album_name'], inplace=True)
+# get list of album ids from our deduplicated dataframe
+final_alb_ids = album['album_id'].tolist()
 
+# get tracks that are only in the albums from our deduplicated album dataframe
+track = track[track['album_id'].isin(final_alb_ids)]
 # drop duplicate tracks with the same track_id
 track.drop_duplicates(subset=['track_id'], inplace=True)
+# get list of album ids from our deduplicated dataframe
+final_track_ids = track['track_id'].tolist()
 
+# get track_feat that are only in the tracks from our deduplicated track dataframe
+track_feat = track_feat[track_feat['track_id'].isin(final_track_ids)]
 # drop duplicate tracks with the same track_id
 track_feat.drop_duplicates(subset=['track_id'], inplace=True)
