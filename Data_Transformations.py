@@ -25,3 +25,13 @@ check_for_dups(artist, 'artist')
 check_for_dups(album, 'album')
 check_for_dups(track, 'track')
 check_for_dups(track_feat, 'track_feat')
+
+# further EDA was done in jupyter notebook, see readme for more info
+# drop duplicate albums with the same name
+album.drop_duplicates(subset=['album_name'], inplace=True)
+
+# drop duplicate tracks with the same track_id
+track.drop_duplicates(subset=['track_id'], inplace=True)
+
+# drop duplicate tracks with the same track_id
+track_feat.drop_duplicates(subset=['track_id'], inplace=True)
