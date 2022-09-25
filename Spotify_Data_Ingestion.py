@@ -215,9 +215,11 @@ for i, name in enumerate(names):
 
             # add dict to list
             track_feat_list.append(current_track_feat)
+            
 print('Data for artists successfully pulled!')
 print('Saving data to .csv files...')
 
+# save all of the lists to df then to csv files naming them accordingly
 tables = [artist_list, album_list, track_list, track_feat_list]
 table_names = ['artist_list', 'album_list', 'track_list', 'track_feat_list']
 
