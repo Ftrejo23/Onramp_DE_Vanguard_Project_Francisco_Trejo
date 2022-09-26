@@ -63,7 +63,6 @@ check_for_nulls([artist, album, track, track_feat], ['artist', 'album', 'track',
 # change release_date data type to be datetime
 print('Correcting datatypes in data...')
 album['release_date'] = pd.to_datetime(album.release_date, format='%Y-%m-%d', errors='coerce')
-
 print('Datatypes successfully changed!')
 
 print('Saving fully transformed data to .csv files...')
