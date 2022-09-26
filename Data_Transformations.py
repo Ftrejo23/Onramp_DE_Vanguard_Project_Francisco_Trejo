@@ -28,7 +28,7 @@ check_for_dups(track_feat, 'track_feat')
 
 print('Removing duplicate values from data...')
 
-# further EDA was done in jupyter notebook, see readme for more info
+'Further transformations, cleaning, and analysis was done in jupyter notebook, see readme for more info'
 # drop duplicate albums with the same name
 album.drop_duplicates(subset=['album_name'], inplace=True)
 # get list of album ids from our deduplicated dataframe
@@ -59,3 +59,18 @@ def check_for_nulls(dfs, tables):
 
 print('Checking data for null values...')
 check_for_nulls([artist, album, track, track_feat], ['artist', 'album', 'track', 'track_feat'])
+
+# change release_date data type to be datetime
+print('Correcting datatypes in data...')
+album['release_date'] = pd.to_datetime(album.release_date, format='%Y-%m-%d', errors='coerce')
+
+print('Datatypes successfully changed!')
+
+print('Saving fully transformed data to .csv files...')
+## save all fully transformed df to csv files naming them accordingly
+dataframe = [artist, album, track, track_feat]
+df_names = ['artist', 'album', 'track', 'track_feat']
+
+for df, df_name in zip(dataframe, df_names):
+    df.to_csv(f'./data/final_{df_name}.csv', index=False)
+print('Data successfully saved! Ready for data storage!')
