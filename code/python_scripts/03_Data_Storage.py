@@ -30,5 +30,4 @@ print('Closing database connection...')
 db_conn.close()
 print('Database connection closed.')
 
-'Outputs of queries/views shown in jupyter notebook, see readme for more info'
 
