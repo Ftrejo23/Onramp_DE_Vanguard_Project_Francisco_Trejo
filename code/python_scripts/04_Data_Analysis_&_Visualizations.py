@@ -1,14 +1,25 @@
 import pandas as pd
+import numpy as np
 import sqlite3
+import seaborn as sns
+import matplotlib.pyplot as plt 
+from matplotlib.patches import Patch
+plt.style.use('fivethirtyeight')
 
 print('Connecting to database...')
 # connect to database
 db_conn = sqlite3.connect('data/sql_db/spotify_data.db')
-print('Connection successful.')
+print('Connection successful.\n')
 
-# create a function to run queries and output pandas dataframe
+# create a function to run queries and print pandas dataframe
 def Q(query, db=db_conn):
+    '''takes in SQL query and prints a pandas dataframe'''
     print(pd.read_sql(query, db))
+
+# create a function to run queries and print pandas dataframe
+def Q_df(query, db=db_conn):
+    '''takes in SQL query and returns a pandas dataframe'''
+    return(pd.read_sql(query, db))
 
 'Outputs of queries/views shown in jupyter notebook, see readme for more info'
 
@@ -133,10 +144,168 @@ FROM sqlite_schema
 WHERE type = 'view';
 ''')
 
-print('\nAll views created successfully!')
+print('\nAll views created successfully!\n')
+
+# create visualizations, see jupyter notebook for plots and additional outputs, refer to readme
+print('Creating visualizations...')
+
+
+# longest song duration per Artist
+top_10_songs_df = Q_df('''
+SELECT *
+FROM top_10_songs_ms_view
+''')
+
+plt.figure(figsize=(15,10))
+
+# want to get the longest songs for each artist
+longest_songs = top_10_songs_df[top_10_songs_df['song_duration_rank_by_artist'] == 1]\
+.sort_values(by='duration_ms', ascending=False)
+
+# plot a bar chart of artist with longest songs
+plt.bar(longest_songs['artist_name'], (longest_songs['duration_ms'] / 1000)/60, color='green', edgecolor='black')
+
+# set title and labels
+plt.title('Longest Song Duration per Artist', fontsize=20, fontweight='bold')
+plt.ylabel('Duration in minutes', fontsize=16, fontweight='bold')
+plt.xlabel('Artist', fontsize=16, fontweight='bold')
+
+# adjust x and y ticks
+plt.xticks(rotation=75, fontsize=14)
+y = np.arange(0, 14, 1)
+plt.yticks(y)
+
+plt.tight_layout()
+
+# save figure as png file
+plt.savefig('assets/longest_songs.png')
+
+
+# correlation between energy and danceability of songs
+track_feat_df = Q_df('''
+SELECT *
+FROM Track_Feature
+''')
+
+plt.figure(figsize=(15,10))
+
+# get the correlation coefficient between 2 variables
+corr_coeff = np.corrcoef(track_feat_df['energy'],track_feat_df['danceability'])[0][1]
+
+# plot the scatter plot of energy vs danceability
+plt.scatter(track_feat_df['energy'], track_feat_df['danceability'], 
+            color='black', s=75, alpha=0.5, label='energy vs danceability')
+
+# plot the correlation line
+plt.plot(np.unique(track_feat_df.energy), 
+         np.poly1d(np.polyfit(track_feat_df.energy, track_feat_df.danceability, 1))
+         (np.unique(track_feat_df.energy)), 
+         color='green', label=f'corr={round(corr_coeff, 2)}', alpha=0.8)
+
+plt.legend(title='Legend', shadow=True)
+
+# set title and labels
+plt.title('Correlation Between Energy and Danceability of Songs', 
+          fontsize=20, color='darkgreen', fontweight='bold')
+plt.ylabel('Danceability', fontsize=16, color='darkgreen', fontweight='bold')
+plt.xlabel('Energy', fontsize=16, color='darkgreen', fontweight='bold')
+
+# adjust x and y ticks
+x = np.arange(0, 1.1, 0.1)
+plt.xticks(x)
+y = np.arange(0, 1.1, 0.1)
+plt.yticks(y)
+
+plt.tight_layout()
+
+# save figure as png file
+plt.savefig('assets/energy_vs_danceability.png');
+
+
+# frequency of danceability
+danceability = Q_df('''
+SELECT *
+FROM Track_Feature
+''')
+
+plt.figure(figsize=(15,10))
+plt.hist(danceability['danceability'], color='black', edgecolor='white')
+
+# set title and labels
+plt.title('Danceability Frequency', 
+          fontsize=20, color='darkgreen', fontweight='bold')
+plt.ylabel('Frequency', fontsize=16, color='darkgreen', fontweight='bold')
+plt.xlabel('Danceability', fontsize=16, color='darkgreen', fontweight='bold')
+
+# adjust x and y ticks
+x = np.arange(0, 1.1, 0.1)
+plt.xticks(x)
+y = np.arange(0, 550, 50)
+plt.yticks(y)
+
+plt.tight_layout()
+
+# save figure as png file
+plt.savefig('assets/danceability_frequency.png');
+
+
+# count of genre above/below median tempo
+track_feat_df = Q_df('''
+SELECT *
+FROM Track_Feature
+''')
+
+# find median tempo
+tempo_med = track_feat_df['tempo'].describe()['50%']
+
+# query and create a column for wether a song is above/below median tempo
+tempo_count_genre_df = Q_df(f'''
+SELECT ar.genre, tf.tempo, 
+    CASE WHEN tf.tempo >= {tempo_med} THEN 1
+    ELSE 0 END AS song_above_below_med
+FROM Artist ar
+-- join necessary tables together
+LEFT JOIN Album a 
+    ON a.artist_id = ar.artist_id
+LEFT JOIN Track t 
+    ON a.album_id = t.album_id
+LEFT JOIN Track_Feature tf
+    ON t.track_id = tf.track_id
+''')
+
+plt.figure(figsize=(15,10))
+
+# plot grouped bar chart
+sns.countplot(x='genre', hue='song_above_below_med', data=tempo_count_genre_df, palette={1:'green', 0:'black'});
+
+# set title and labels
+plt.title('Genre vs Above/Below Median Tempo', fontsize=20, fontweight='bold')
+
+plt.ylabel('Count', fontsize=16, fontweight='bold')
+plt.xlabel('Genre', fontsize=16, fontweight='bold')
+
+# set color patches for legend
+color_patches = [
+    Patch(facecolor="green", label="above median tempo"),
+    Patch(facecolor="black", label="below median tempo")
+]
+
+plt.legend(handles=color_patches, shadow=True, title='Legend')
+
+# adjust xticks
+plt.xticks(rotation=75, fontsize=14)
+
+plt.tight_layout()
+
+# save figure as png file
+plt.savefig('assets/genre_above_below_med_tempo.png');
+
+print('Visualizations created!\n')
 
 # commit changes to the database
 db_conn.commit()
 
+print('Closing database connection...')
 # close database connection
 db_conn.close()
+print('Database connection closed.')
