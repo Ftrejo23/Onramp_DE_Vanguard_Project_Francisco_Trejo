@@ -13,11 +13,13 @@ def Q(query, db=db_conn):
 'Outputs of queries/views shown in jupyter notebook, see readme for more info'
 
 print('Creating necessary views...\n')
+
+# Top 10 songs by artist in terms of duration_ms
 # This will drop the view if it exists. Need this in order to rerun code.
-db_conn.execute('''DROP VIEW IF EXISTS top_5_songs_ms_view ;''')
+db_conn.execute('''DROP VIEW IF EXISTS top_10_songs_ms_view;''')
 
 db_conn.execute('''
-CREATE VIEW top_5_songs_ms_view AS
+CREATE VIEW top_10_songs_ms_view AS
 WITH top_songs_by_artist_cte AS 
 -- subquery for cte, want necessary columns and additional column that ranks songs by duration grouped by artist
 (SELECT ar.artist_name, t.song_name, a.album_name, t.duration_ms,
@@ -32,25 +34,27 @@ ORDER BY t.duration_ms DESC)
 -- query the cte for top 5 longest songs by artist
 SELECT *
 FROM top_songs_by_artist_cte
--- only want songs ranked in the top 5
-WHERE song_duration_rank_by_artist BETWEEN 1 AND 5
+-- only want songs ranked in the top 10
+WHERE song_duration_rank_by_artist BETWEEN 1 AND 10
 ORDER BY artist_name ASC, song_duration_rank_by_artist ASC;
 ''')
 
-db_conn.execute('''DROP VIEW IF EXISTS top_10_artist_num_followers_view;''')
+# Top 20 artists in the database by # of followers
+db_conn.execute('''DROP VIEW IF EXISTS top_20_artist_num_followers_view;''')
 
 db_conn.execute('''
-CREATE VIEW top_10_artist_num_followers_view AS
+CREATE VIEW top_20_artist_num_followers_view AS
 SELECT artist_name, genre, followers, popularity
 FROM Artist
 ORDER BY followers DESC
-LIMIT 10;
+LIMIT 20;
 ''')
 
-db_conn.execute('''DROP VIEW IF EXISTS top_5_songs_tempo_view;''')
+# Top 10 songs by artist in terms of tempo
+db_conn.execute('''DROP VIEW IF EXISTS top_10_songs_tempo_view;''')
 
 db_conn.execute('''
-CREATE VIEW top_5_songs_tempo_view AS
+CREATE VIEW top_10_songs_tempo_view AS
 WITH top_tempo_cte AS
 -- subquery for cte, need to rank songs by tempo
 (SELECT ar.artist_name, t.song_name, tf.tempo,
@@ -66,10 +70,11 @@ LEFT JOIN Track_Feature tf
 -- query the cte for top 5 tracks with highest tempo
 SELECT *
 FROM top_tempo_cte
-WHERE tempo_rank_by_artist BETWEEN 1 AND 5
+WHERE tempo_rank_by_artist BETWEEN 1 AND 10
 ORDER BY artist_name ASC, tempo_rank_by_artist ASC;
 ''')
 
+# Top 10 Artists with most explicit tracks
 db_conn.execute('''DROP VIEW IF EXISTS top_10_explicit_artist_view;''')
 
 db_conn.execute('''
@@ -86,6 +91,7 @@ ORDER BY num_explicit_tracks DESC
 LIMIT 10;
 ''')
 
+# Top 5 genres with highest average energy
 db_conn.execute('''DROP VIEW IF EXISTS top_5_genres_avg_energy_view;''')
 
 db_conn.execute('''
@@ -104,6 +110,7 @@ ORDER BY avg_energy DESC
 LIMIT 5;
 ''')
 
+# Top 5 Artists with the most Deluxe/bonus albums
 db_conn.execute('''DROP VIEW IF EXISTS top_5_artist_num_deluxe_view;''')
 
 db_conn.execute('''
@@ -119,6 +126,7 @@ ORDER BY num_deluxe_albs DESC
 LIMIT 5;
 ''')
 
+# print out views in our database
 Q('''
 SELECT name 
 FROM sqlite_schema 
