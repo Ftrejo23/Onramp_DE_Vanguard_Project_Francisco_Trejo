@@ -8,9 +8,9 @@
 4. [Data Dictionary](#Data-Dictionary)
 5. [Executive Summary](#Executive-Summary)
 6. [Spotify Data Ingestion](#Spotify-Data-Ingestion)
-7. [Data Transformations](#Data=Transformations)
+7. [Data Transformations](#Data-Transformations)
 8. [Data Storage](#Data-Storage)
-9. [Data Analysis & Visualizations](#Data-Analysis-&-Visualizations)
+9. [Data Analysis & Visualizations](#Data-Analysis--Visualizations)
 10. [Conclusions & Recommendations](#Conclusions--Recommendations)
 11. [Notes](#Notes)
 
