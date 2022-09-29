@@ -126,6 +126,8 @@ Data dictionary taken from project repo found [here](https://github.com/onramp-i
 |      valence     |    double    |                 0.148                |
 |     song_uri     | varchar(100) | spotify:track:5k8kaD41vSP6l0Jhe9HzmY |
 
+For further explanation of Track_Feature values see [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features).
+
 ## Executive Summary
 For this project, I pulled artist, album, song, and song features using the Spotify API. Over 2000 rows of data were successfully pulled and then saved as 4 csv files. The data was then checked for duplicate values subsequently removing any that were present in the data. Once the data was deduplicated then the data was checked for any null values. None were present in the data so I was able to move on to addressing the data types. There was a date that had to be changed to a datetime datatype. Once data was fully transformed final csv version were then saved.
 
