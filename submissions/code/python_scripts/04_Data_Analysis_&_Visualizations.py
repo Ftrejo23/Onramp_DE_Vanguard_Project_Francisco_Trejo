@@ -8,7 +8,7 @@ plt.style.use('fivethirtyeight')
 
 print('Connecting to database...')
 # connect to database
-db_conn = sqlite3.connect('data/sql_db/spotify_data.db')
+db_conn = sqlite3.connect('submissions/data/sql_db/spotify_data.db')
 print('Connection successful.\n')
 
 # create a function to run queries and print pandas dataframe
@@ -178,7 +178,7 @@ plt.yticks(y)
 plt.tight_layout()
 
 # save figure as png file
-plt.savefig('assets/longest_songs.png')
+plt.savefig('submissions/assets/longest_songs.png')
 
 
 # correlation between energy and danceability of songs
@@ -219,7 +219,7 @@ plt.yticks(y)
 plt.tight_layout()
 
 # save figure as png file
-plt.savefig('assets/energy_vs_danceability.png');
+plt.savefig('submissions/assets/energy_vs_danceability.png');
 
 
 # frequency of danceability
@@ -246,7 +246,7 @@ plt.yticks(y)
 plt.tight_layout()
 
 # save figure as png file
-plt.savefig('assets/danceability_frequency.png');
+plt.savefig('submissions/assets/danceability_frequency.png');
 
 
 # count of genre above/below median tempo
@@ -298,7 +298,7 @@ plt.xticks(rotation=75, fontsize=14)
 plt.tight_layout()
 
 # save figure as png file
-plt.savefig('assets/genre_above_below_med_tempo.png');
+plt.savefig('submissions/assets/genre_above_below_med_tempo.png');
 
 print('Visualizations created!\n')
 

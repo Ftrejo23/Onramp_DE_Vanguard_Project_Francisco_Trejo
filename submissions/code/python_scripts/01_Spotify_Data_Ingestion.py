@@ -225,6 +225,7 @@ table_names = ['artist_list', 'album_list', 'track_list', 'track_feat_list']
 
 for table, table_name in zip(tables, table_names):
     df = pd.DataFrame(table)
-    df.to_csv(f'./data/{table_name[:-5]}.csv', index=False)
+    df.to_csv(f'submissions/data/{table_name[:-5]}.csv', index=False)
+    
     
 print('Data saved successfully, ready for data transformations!')

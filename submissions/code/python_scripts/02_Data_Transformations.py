@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 
 # read in our data 
-artist = pd.read_csv('./data/artist.csv')
-album = pd.read_csv('./data/album.csv')
-track = pd.read_csv('./data/track.csv')
-track_feat = pd.read_csv('./data/track_feat.csv')
+artist = pd.read_csv('submissions/data/artist.csv')
+album = pd.read_csv('submissions/data/album.csv')
+track = pd.read_csv('submissions/data/track.csv')
+track_feat = pd.read_csv('submissions/data/track_feat.csv')
 
 # create function to check if there are duplicate row values in the dfs
 def check_for_dups(df, table):
@@ -20,13 +20,14 @@ def check_for_dups(df, table):
                 potential_dups.append(col)
     print(f'The following columns in {table} have potential duplicates: {potential_dups}')
 
+print('Checking for duplicate values...\n')
 # check all dfs for potential duplicate values
 check_for_dups(artist, 'artist')
 check_for_dups(album, 'album')
 check_for_dups(track, 'track')
 check_for_dups(track_feat, 'track_feat')
 
-print('Removing duplicate values from data...')
+print('\nRemoving duplicate values from data...')
 
 'Further transformations, cleaning, and analysis was done in jupyter notebook, see readme for more info'
 # drop duplicate albums with the same name
@@ -46,7 +47,7 @@ track_feat = track_feat[track_feat['track_id'].isin(final_track_ids)]
 # drop duplicate tracks with the same track_id
 track_feat.drop_duplicates(subset=['track_id'], inplace=True)
 
-print('Duplicate values successfully removed!')
+print('Duplicate values successfully removed!\n')
 
 # function to quickly check if there are null values in the dataframes
 def check_for_nulls(dfs, tables):
@@ -61,9 +62,9 @@ print('Checking data for null values...')
 check_for_nulls([artist, album, track, track_feat], ['artist', 'album', 'track', 'track_feat'])
 
 # change release_date data type to be datetime
-print('Correcting datatypes in data...')
+print('\nCorrecting datatypes in data...')
 album['release_date'] = pd.to_datetime(album.release_date, format='%Y-%m-%d', errors='coerce')
-print('Datatypes successfully changed!')
+print('Datatypes successfully changed!\n')
 
 print('Saving fully transformed data to .csv files...')
 ## save all fully transformed df to csv files naming them accordingly
@@ -71,5 +72,5 @@ dataframe = [artist, album, track, track_feat]
 df_names = ['artist', 'album', 'track', 'track_feat']
 
 for df, df_name in zip(dataframe, df_names):
-    df.to_csv(f'./data/final_{df_name}.csv', index=False)
+    df.to_csv(f'submissions/data/final_{df_name}.csv', index=False)
 print('Data successfully saved! Ready for data storage!')
