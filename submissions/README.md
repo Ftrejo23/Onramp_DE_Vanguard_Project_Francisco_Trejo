@@ -7,8 +7,12 @@
 3. [Project Requirements](#Project-Requirements)
 4. [Data Dictionary](#Data-Dictionary)
 5. [Executive Summary](#Executive-Summary)
-6. [Conclusions & Recommendations](#Conclusions--Recommendations)
-7. [Notes](#Notes)
+6. [Spotify Data Ingestion](#Spotify-Data-Ingestion)
+7. [Data Transformations](#Data=Transformations)
+8. [Data Storage](#Data-Storage)
+9. [Data Analysis & Visualizations](#Data-Analysis-&-Visualizations)
+10. [Conclusions & Recommendations](#Conclusions--Recommendations)
+11. [Notes](#Notes)
 
 ## Project Objective
 
@@ -132,6 +136,18 @@ For further explanation of Track_Feature values see [here](https://developer.spo
 For this project, I pulled artist, album, song, and song features using the Spotify API. Over 2000 rows of data were successfully pulled and then saved as 4 csv files. The data was then checked for duplicate values subsequently removing any that were present in the data. Once the data was deduplicated then the data was checked for any null values. None were present in the data so I was able to move on to addressing the data types. There was a date that had to be changed to a datetime datatype. Once data was fully transformed final csv version were then saved.
 
 The next step was to store our data locally using SQLite, the final csv files were loaded in and then using pandas functions the data frames were loaded into the database as tables. Once the data was loaded it was time to do some data analytics and visualizations. 6 different views were created, 3 addressed the prompts given and the rest were my own based on findings I was interested in sharing. Finally, 4 different visualizations were made to help increase insight and understanding of the data.
+
+## [Spotify Data Ingestion](./code/python_scripts/01_Spotify_Data_Ingestion.py)
+For this file, I loaded in the necessary imports and set up my environment variables for the Spotify API, Spotipy. From there a connection was established and my top 20 artists were chosen in a list of names. For each necessary table, I created lists to store dictionaries for each current artist, album, track, and track feature. Then I started pulling in the data for each of my 20 artists, iterating through the list of names and for each artist pulling in a max of 12 albums and all respective tracks and track features. Appending to our lists as each iteration ends. Then at the end, I saved lists as pandas data frames and then to csv files in the appropriate folder.
+
+## [Data Transformations](./code/python_scripts/02_Data_Transformations.py)
+In the data transformations file, I read in the raw data and then created a function that checks for potential duplicate values and prints out the table and what columns the potential duplicates are in for further exploration. Please see Jupiter notebooks for further analysis. Any duplicates were dropped from the corresponding data frame and since all tables are connected if albums were dropped then the associated tracks need to be dropped as well. I then created a function to check for null values in our data, none were found so good to move on. Lastly, I checked the data types of the column values to make sure that they matched the data dictionary that was given. I changed a date column to be a datetime data type and then saved final data frames as final csv files.
+
+## [Data Storage](./code/python_scripts/03_Data_Storage.py)
+Here I loaded in the final csv files and then connected them to my local database. Using pandas functions I was able to load the data frames into SQLite as tables with the correct data types. Finally, I committed the changes and closed the connection.
+
+## [Data Analysis & Visualizations](./code/python_scripts/04_Data_Analysis_&_Visualizations.py)
+For the final file, I connected to my local SQLite database and created 2 functions in the python file to query the database. Both functions take in a SQL query but one prints a pandas data frame and the other returns it. Then I created 6 different views, 3 required and 3 of my own, for these views I had to drop them if they existed and then create the view to make it easier to re-run the code. Then I printed a table of all views to ensure they were successfully created. I created 4 different visualizations using matplotlib and seaborn ensuring that each visualization had a title, x-label, y-label, and legend if applicable. To do this I had to query the database and return a pandas data frame for plotting. Any additional transformations were made to get the necessary data and then they were saved as PNG files in the appropriate folder. These visualizations were later combined into a PDF using a PDF editor. Finally, I committed all the changes and closed the database connection.
 
 ## Conclusions & Recommendations
 I was able to successfully pull data using the Spotify API, transform the data, store it locally, and then analyze and create visualizations. Over 2000 rows of raw data was pulled and after data transformations and removing duplicates there were still over 1500 rows. The SQL database contains 4 tables along with 6 views. Using matplotlib and seaborn I was able to create 4 different visualizations of the data which was then saved into a PDF file. All deliverables were successfully met and I really am grateful for the opportunity and the challenge.
