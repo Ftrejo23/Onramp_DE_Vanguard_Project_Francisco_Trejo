@@ -2,7 +2,7 @@
 
 ## Contents
 
-1. [Project Objective](#Problem-Statement)
+1. [Project Objective](#Project-Objective)
 2. [Project Directory](#Project-Directory)
 3. [Project Requirements](#Project-Requirements)
 4. [Data Dictionary](#Data-Dictionary)
@@ -56,3 +56,71 @@ Onramp_DE_Vanguard_Project_Francisco_Trejo
 |   |__ README.md
 |__ .gitignore
 ```
+
+## Project Requirements
+The following libraries were used in the project.
+- Spotipy
+- Pandas
+- Numpy
+- Sqlite3
+- Seaborn
+- Matplotlib
+
+## Data Dictionary
+
+Data dictionary taken from project repo found [here](https://github.com/onramp-io/vanguard_de_project)
+#### Artist
+
+|    column    |   datatype   |                              example                             |
+|:------------:|:------------:|:----------------------------------------------------------------:|
+|   artist_id  |  varchar(50) |                      7jy3rLJdDQY21OgRLCZ9sD                      |
+|  artist_name | varchar(255) |                           Foo Fighters                           |
+| external_url | varchar(100) |      https://open.spotify.com/artist/7jy3rLJdDQY21OgRLCZ9sD      |
+|     genre    | varchar(100) |                         alternative metal                        |
+|   image_url  | varchar(100) | https://i.scdn.co/image/ab6761610000e5eb9a43b87b50cd3d03544bb3e5 |
+|   followers  |      int     |                             10156976                             |
+|  popularity  |      int     |                                77                                |
+|     type     |  varchar(50) |                              artist                              |
+|  artist_uri  | varchar(100) |               spotify:artist:7jy3rLJdDQY21OgRLCZ9sD              |
+
+#### Album
+
+|    column    |   datatype   |                              example                             |
+|:------------:|:------------:|:----------------------------------------------------------------:|
+|   album_id   |  varchar(50) |                      2FfewmvnA0wctMD64KjOxP                      |
+|  album_name  | varchar(255) |                            Dream Widow                           |
+| external_url | varchar(100) |       https://open.spotify.com/album/2FfewmvnA0wctMD64KjOxP      |
+|   image_url  | varchar(100) | https://i.scdn.co/image/ab67616d0000b273a57abaeb967f055948170bd6 |
+| release_date |     date     |                            2022-03-25                            |
+| total_tracks |      int     |                                 8                                |
+|     type     |  varchar(50) |                               album                              |
+|   album_uri  | varchar(100) |               spotify:album:2FfewmvnA0wctMD64KjOxP               |
+|   artist_id  |  varchar(50) |                      7jy3rLJdDQY21OgRLCZ9sD                      |
+
+#### Track
+|    column    |   datatype   |                        example                        |
+|:------------:|:------------:|:-----------------------------------------------------:|
+|   track_id   |  varchar(50) |                 5k8kaD41vSP6l0Jhe9HzmY                |
+| song_name    | varchar(255) |                         Encino                        |
+| external_url | varchar(100) | https://open.spotify.com/track/5k8kaD41vSP6l0Jhe9HzmY |
+|  duration_ms |      int     |                         98293                         |
+|   explicit   |    boolean   |                          TRUE                         |
+|  disc_number |      int     |                           1                           |
+|     type     |  varchar(50) |                         track                         |
+|   song_uri   | varchar(100) |          spotify:track:5k8kaD41vSP6l0Jhe9HzmY         |
+|   album_id   |  varchar(50) |                 2FfewmvnA0wctMD64KjOxP                |
+
+#### Track_Feature
+|      column      |   datatype   |                example               |
+|:----------------:|:------------:|:------------------------------------:|
+|     track_id     |  varchar(50) |        5k8kaD41vSP6l0Jhe9HzmY        |
+|   danceability   |    double    |                 0.277                |
+|      energy      |    double    |                 0.992                |
+| instrumentalness |    double    |                 0.836                |
+|     liveness     |    double    |                 0.272                |
+|     loudness     |    double    |                -6.237                |
+|    speechiness   |    double    |                0.0856                |
+|       tempo      |    double    |                103.494               |
+|       type       |  varchar(50) |            audio_features            |
+|      valence     |    double    |                 0.148                |
+|     song_uri     | varchar(100) | spotify:track:5k8kaD41vSP6l0Jhe9HzmY |
