@@ -56,6 +56,11 @@ Onramp_DE_Vanguard_Project_Francisco_Trejo
 |   |__ README.md
 |__ .gitignore
 ```
+Quick links:
+- [assets](./assets)
+- [python_scripts](./code/python_scripts)
+- [jupyter_notebooks](./code/jupyter_notebooks)
+- [data](./data)
 
 ## Project Requirements
 The following libraries were used in the project.
@@ -68,7 +73,7 @@ The following libraries were used in the project.
 
 ## Data Dictionary
 
-Data dictionary taken from project repo found [here](https://github.com/onramp-io/vanguard_de_project)
+Data dictionary taken from project repo found [here](https://github.com/onramp-io/vanguard_de_project).
 #### Artist
 
 |    column    |   datatype   |                              example                             |
@@ -124,3 +129,8 @@ Data dictionary taken from project repo found [here](https://github.com/onramp-i
 |       type       |  varchar(50) |            audio_features            |
 |      valence     |    double    |                 0.148                |
 |     song_uri     | varchar(100) | spotify:track:5k8kaD41vSP6l0Jhe9HzmY |
+
+## Executive Summary
+For this project, I pulled artist, album, song, and song features using the Spotify API. Over 2000 rows of data were successfully pulled and then saved as 4 csv files. The data was then checked for duplicate values subsequently removing any that were present in the data. Once the data was deduplicated then the data was checked for any null values. None were present in the data so I was able to move on to addressing the data types. There was a date that had to be changed to a datetime datatype. Once data was fully transformed final csv version were then saved.
+
+The next step was to store our data locally using SQLite, the final csv files were loaded in and then using pandas functions the data frames were loaded into the database as tables. Once the data was loaded it was time to do some data analytics and visualizations. 6 different views were created, 3 addressed the prompts given and the rest were my own based on findings I was interested in sharing. Finally, 4 different visualizations were made to help increase insight and understanding of the data.
