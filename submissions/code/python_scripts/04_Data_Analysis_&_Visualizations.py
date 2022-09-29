@@ -166,7 +166,7 @@ longest_songs = top_10_songs_df[top_10_songs_df['song_duration_rank_by_artist'] 
 plt.bar(longest_songs['artist_name'], (longest_songs['duration_ms'] / 1000)/60, color='green', edgecolor='black')
 
 # set title and labels
-plt.title('Longest Song Duration per Artist', fontsize=20, fontweight='bold')
+plt.title('Figure 1. Longest Song Duration per Artist', fontsize=20, fontweight='bold', loc='left')
 plt.ylabel('Duration in minutes', fontsize=16, fontweight='bold')
 plt.xlabel('Artist', fontsize=16, fontweight='bold')
 
@@ -205,8 +205,8 @@ plt.plot(np.unique(track_feat_df.energy),
 plt.legend(title='Legend', shadow=True)
 
 # set title and labels
-plt.title('Correlation Between Energy and Danceability of Songs', 
-          fontsize=20, color='darkgreen', fontweight='bold')
+plt.title('Figure 2. Correlation Between Energy and Danceability of Songs', 
+          fontsize=20, color='darkgreen', fontweight='bold', loc='left')
 plt.ylabel('Danceability', fontsize=16, color='darkgreen', fontweight='bold')
 plt.xlabel('Energy', fontsize=16, color='darkgreen', fontweight='bold')
 
@@ -232,8 +232,8 @@ plt.figure(figsize=(15,10))
 plt.hist(danceability['danceability'], color='black', edgecolor='white')
 
 # set title and labels
-plt.title('Danceability Frequency', 
-          fontsize=20, color='darkgreen', fontweight='bold')
+plt.title('Figure 3. Danceability Frequency', 
+          fontsize=20, color='darkgreen', fontweight='bold', loc='left')
 plt.ylabel('Frequency', fontsize=16, color='darkgreen', fontweight='bold')
 plt.xlabel('Danceability', fontsize=16, color='darkgreen', fontweight='bold')
 
@@ -279,7 +279,7 @@ plt.figure(figsize=(15,10))
 sns.countplot(x='genre', hue='song_above_below_med', data=tempo_count_genre_df, palette={1:'green', 0:'black'});
 
 # set title and labels
-plt.title('Genre vs Above/Below Median Tempo', fontsize=20, fontweight='bold')
+plt.title('Figure 4. Genre vs Above/Below Median Tempo', fontsize=20, fontweight='bold', loc='left')
 
 plt.ylabel('Count', fontsize=16, fontweight='bold')
 plt.xlabel('Genre', fontsize=16, fontweight='bold')
