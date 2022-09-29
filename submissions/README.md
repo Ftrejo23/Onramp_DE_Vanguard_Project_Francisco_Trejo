@@ -16,7 +16,7 @@
 
 ## Project Objective
 
-The objective of this project is to ingest, transform, store, and analyze Spotify data from my own personal top 20 artists. This will be done using the Spotify API, [Spotipy] (https://spotipy.readthedocs.io/en/master/#), to get info about the artist, their albums, and songs. The data will be stored in a SQLite database on our local machines where we will create views and visualizations for additional analytics.
+The objective of this project is to ingest, transform, store, and analyze Spotify data from my own personal top 20 artists. This will be done using the Spotify API, [Spotipy](https://spotipy.readthedocs.io/en/master/#), to get info about the artist, their albums, and songs. The data will be stored in a SQLite database on our local machines where we will create views and visualizations for additional analytics.
 
 
 ## Project Directory
