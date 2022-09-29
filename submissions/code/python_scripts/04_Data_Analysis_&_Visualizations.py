@@ -146,7 +146,7 @@ WHERE type = 'view';
 
 print('\nAll views created successfully!\n')
 
-# create visualizations, see jupyter notebook for plots and additional outputs, refer to readme
+'create visualizations, see jupyter notebook for plots and additional outputs, refer to readme'
 print('Creating visualizations...')
 
 

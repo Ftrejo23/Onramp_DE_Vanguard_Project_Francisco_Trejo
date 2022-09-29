@@ -7,12 +7,8 @@
 3. [Project Requirements](#Project-Requirements)
 4. [Data Dictionary](#Data-Dictionary)
 5. [Executive Summary](#Executive-Summary)
-6. [Data Collection](#Data-Collection)
-7. [Data Cleaning](#Data-Cleaning)
-8. [Exploratory Data Analysis](#Exploratory-Data-Analysis)
-9. [Preprocessing](#Preprocessing)
-10. [Modeling](#Modeling)
-11. [Conclusions & Recommendations](#Conclusions--Recommendations)
+6. [Conclusions & Recommendations](#Conclusions--Recommendations)
+7. [Notes](#Notes)
 
 ## Project Objective
 
@@ -56,7 +52,7 @@ Onramp_DE_Vanguard_Project_Francisco_Trejo
 |   |__ README.md
 |__ .gitignore
 ```
-Quick links:
+### Quick links:
 - [assets](./assets)
 - [python_scripts](./code/python_scripts)
 - [jupyter_notebooks](./code/jupyter_notebooks)
@@ -134,3 +130,11 @@ Data dictionary taken from project repo found [here](https://github.com/onramp-i
 For this project, I pulled artist, album, song, and song features using the Spotify API. Over 2000 rows of data were successfully pulled and then saved as 4 csv files. The data was then checked for duplicate values subsequently removing any that were present in the data. Once the data was deduplicated then the data was checked for any null values. None were present in the data so I was able to move on to addressing the data types. There was a date that had to be changed to a datetime datatype. Once data was fully transformed final csv version were then saved.
 
 The next step was to store our data locally using SQLite, the final csv files were loaded in and then using pandas functions the data frames were loaded into the database as tables. Once the data was loaded it was time to do some data analytics and visualizations. 6 different views were created, 3 addressed the prompts given and the rest were my own based on findings I was interested in sharing. Finally, 4 different visualizations were made to help increase insight and understanding of the data.
+
+## Conclusions & Recommendations
+I was able to successfully pull data using the Spotify API, transform the data, store it locally, and then analyze and create visualizations. Over 2000 rows of raw data was pulled and after data transformations and removing duplicates there were still over 1500 rows. The SQL database contains 4 tables along with 6 views. Using matplotlib and seaborn I was able to create 4 different visualizations of the data which was then saved into a PDF file. All deliverables were successfully met and I really am grateful for the opportunity and the challenge.
+
+Given more time I would have loved to incorporate some sort of cloud storage either with GCP or AWS to better emulate a more real-life scenario in a business environment. Also pulling in more data from the API would be beneficial and provide more value for those on the Data Science / Data Analytics teams. Lastly, I would like to see how this sort of project would be done in a team environment using GitHub, different branches, and having to deal with merge commits all of which would provide a valuable learning experience.
+
+## Notes
+I chose to have both .ipynb and .py files because I believe for certain portions of the project it was better to show the outputs and further elaborate on my thought process using a jupyter notebook. The code on both is identical but in the jupyter notebooks I was able to make comments in markdown and see the outputs which aided in my thought process. I was able to further show how I came to do certain things such as the data transformations, views, and visualizations.
